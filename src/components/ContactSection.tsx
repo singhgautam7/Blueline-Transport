@@ -32,7 +32,7 @@ export function ContactSection() {
       .replace("{name}", values.name)
       .replace("{company}", values.company)
       .replace("{phone}", values.phone)
-      .replace("{details}", values.details || "—");
+      .replace("{details}", values.details || "Not specified");
     window.open(waHref(message), "_blank", "noopener,noreferrer");
 
     // --- Alternative: deliver as email via Web3Forms (uncomment to use) ---
@@ -112,7 +112,7 @@ export function ContactSection() {
             {/* Embedded map of the office (built from contact.mapsQuery) */}
             <div className="relative h-[130px] overflow-hidden rounded-[10px] border border-line2 bg-[#E9EEF5]">
               <iframe
-                title={`Map — ${contact.mapsQuery}`}
+                title={`Map of ${contact.mapsQuery}`}
                 src={mapEmbedSrc()}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
