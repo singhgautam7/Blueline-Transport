@@ -146,14 +146,14 @@ export const siteContent = {
       { city: "Ahmedabad", note: "Gujarat distribution centre", lat: 23.03, lng: 72.57, labelSide: "right" },
       { city: "Bengaluru", note: "Next hub, our South India gateway", comingSoon: "Coming 2026", lat: 12.97, lng: 77.59, labelSide: "left" },
     ],
-    // Decorative non-served metros (central & south India), tinted on the map
-    // for geographic context.
+    // Decorative non-served metros (central, west & south India), tinted on the
+    // map for geographic context.
     contextCities: [
-      { city: "Nagpur", lat: 21.15, lng: 79.09, labelSide: "right" },
-      { city: "Hyderabad", lat: 17.39, lng: 78.49, labelSide: "right" },
+      { city: "Rajkot", lat: 22.30, lng: 70.79, labelSide: "left" },
+      { city: "Indore", lat: 22.72, lng: 75.86, labelSide: "right" },
+      { city: "Nagpur", lat: 21.15, lng: 79.09, labelSide: "left" },
+      { city: "Hyderabad", lat: 17.39, lng: 78.49, labelSide: "left" },
       { city: "Goa", lat: 15.49, lng: 73.83, labelSide: "left" },
-      { city: "Chennai", lat: 13.08, lng: 80.27, labelSide: "right" },
-      { city: "Kochi", lat: 9.93, lng: 76.27, labelSide: "left" },
     ],
     // Freight corridors drawn between hubs (by city name).
     corridors: [

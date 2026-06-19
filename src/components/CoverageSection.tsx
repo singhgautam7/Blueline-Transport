@@ -26,12 +26,12 @@ const hubs = coverage.hubs as readonly Hub[];
  * zoomed map. City dots use the SAME projection, so they always sit in their
  * true geographic position.
  * ----------------------------------------------------------------------- */
-const LON0 = 69.0; // western edge of frame (Gujarat coast)
-const LON_MAX = 86.5; // eastern edge of frame (Bay of Bengal coast)
-const LAT_TOP = 26.5; // northern edge of frame (above Ahmedabad)
-const LAT_BOT = 7.8; // southern edge of frame (Kanyakumari tip)
-const PX_LON = 13.3;
-const PX_LAT = 14.0;
+const LON0 = 68.0; // western edge of frame (Kutch coast)
+const LON_MAX = 80.0; // eastern edge of frame (Deccan / east coast)
+const LAT_TOP = 24.5; // northern edge of frame (Rann of Kutch / above Ahmedabad)
+const LAT_BOT = 11.0; // southern edge of frame (below Bengaluru)
+const PX_LON = 18.05;
+const PX_LAT = 19.0;
 const PAD = 16;
 
 const px = (lng: number) => PAD + (lng - LON0) * PX_LON;
@@ -40,20 +40,39 @@ const py = (lat: number) => PAD + (LAT_TOP - lat) * PX_LAT;
 const VB_W = Math.round(PAD * 2 + (LON_MAX - LON0) * PX_LON);
 const VB_H = Math.round(PAD * 2 + (LAT_TOP - LAT_BOT) * PX_LAT);
 
-// India border traced clockwise from the north-west as [lng, lat] pairs.
+// India border traced clockwise from the north as [lng, lat] pairs. Points
+// outside the frame (the north, north-east and far east) are intentionally
+// coarse — they are clipped by the viewBox. The Gujarat coast (Gulf of
+// Khambhat, Saurashtra peninsula, Gulf of Kutch, Kutch) is detailed because
+// it sits inside the zoomed frame.
 const INDIA: [number, number][] = [
-  [74.0, 34.3], [75.0, 35.0], [76.8, 35.5], [78.4, 34.6], [79.2, 33.2],
-  [80.0, 31.4], [81.0, 30.2], [82.8, 28.8], [84.6, 27.9], [86.7, 27.5],
-  [88.2, 27.3], [89.0, 27.9], [90.5, 28.0], [92.0, 27.9], [94.0, 28.0],
-  [95.5, 28.5], [96.8, 28.3], [97.0, 27.5], [96.2, 26.6], [95.2, 26.7],
-  [94.6, 25.4], [94.2, 24.0], [93.3, 23.0], [93.4, 22.2], [92.2, 23.7],
-  [91.0, 24.1], [89.7, 25.3], [88.1, 24.6], [88.0, 23.2], [87.8, 21.7],
-  [86.5, 20.8], [85.0, 19.8], [84.0, 18.5], [82.5, 17.0], [80.8, 15.8],
-  [80.3, 13.5], [79.9, 11.9], [79.3, 10.3], [78.5, 9.2], [77.5, 8.1],
-  [76.5, 8.9], [75.8, 11.6], [74.7, 13.5], [73.8, 15.7], [72.9, 17.9],
-  [72.7, 19.2], [72.6, 20.7], [72.9, 21.7], [70.0, 20.9], [69.1, 22.3],
-  [68.2, 23.7], [70.0, 24.3], [71.0, 24.3], [72.6, 24.6], [73.0, 27.0],
-  [72.3, 28.5], [73.8, 30.0], [74.5, 31.6], [74.6, 32.8],
+  // North & north-east (clipped above the frame)
+  [74.0, 34.3], [78.0, 35.0], [82.0, 29.0], [86.0, 27.5], [89.0, 27.9],
+  [92.0, 27.9], [95.5, 28.5], [97.0, 28.0],
+  // East / north-east (clipped to the right)
+  [97.0, 26.0], [94.5, 25.0], [93.5, 22.5], [91.0, 24.0], [88.0, 23.0],
+  // East coast (Odisha → Andhra → Tamil Nadu)
+  [87.0, 20.8], [85.0, 19.5], [83.5, 18.0], [82.0, 16.5], [80.8, 15.7],
+  [80.3, 13.5], [79.9, 12.0], [79.3, 10.5], [78.6, 9.4],
+  // South tip (clipped below the frame)
+  [77.5, 8.1], [76.6, 8.8],
+  // West coast going north (Kerala → Karnataka → Goa → Konkan)
+  [76.0, 10.8], [75.0, 12.2], [74.5, 13.2], [74.0, 14.5], [73.7, 15.5],
+  [73.4, 16.5], [73.0, 17.7], [72.9, 18.5], [72.78, 19.2], [72.72, 20.1],
+  // --- Gujarat: east shore of Gulf of Khambhat up to the head ---
+  [72.78, 20.9], [72.6, 21.5], [72.55, 22.0], [72.5, 22.35],
+  // head of the gulf, down the west shore (Bhavnagar)
+  [72.25, 22.05], [72.15, 21.77],
+  // Saurashtra south coast: Bhavnagar → Diu → Veraval → Porbandar → Dwarka
+  [71.5, 21.0], [70.99, 20.71], [70.37, 20.9], [69.64, 21.64], [68.97, 22.24],
+  // Saurashtra north coast into the Gulf of Kutch (Okha → Jamnagar → head)
+  [69.15, 22.45], [70.07, 22.47], [70.55, 22.7],
+  // around the gulf head, west along the Kutch south coast (Mandvi → Kutch W)
+  [70.1, 22.95], [69.35, 22.83], [68.7, 23.05], [68.2, 23.75],
+  // Rann of Kutch north edge, back toward the mainland (clipped above)
+  [68.6, 24.2], [70.2, 24.3], [71.6, 24.35], [72.6, 24.6],
+  // Western border up through Rajasthan/Punjab (clipped above)
+  [73.0, 27.0], [73.8, 30.0], [74.5, 32.5],
 ];
 
 const indiaPath =
@@ -77,7 +96,7 @@ export function CoverageSection() {
             <div className="absolute left-[18px] top-[14px] font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
               {coverage.mapLabel}
             </div>
-            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} width="100%" className="block max-w-[300px]" role="img" aria-label="Map of central and southern India showing Blueline service hubs">
+            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} width="100%" className="block max-w-[400px]" role="img" aria-label="Map of central and southern India showing Blueline service hubs">
               {/* India landmass (clipped to the central/south frame) */}
               <path d={indiaPath} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.28)" strokeWidth="1.4" strokeLinejoin="round" />
 
