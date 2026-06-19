@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+  Blueline Transport — design tokens.
+  These mirror the Claude Design handoff (see /specs/DESIGN.md).
+  Colours, fonts and the 860px breakpoint are exposed to Tailwind via @theme,
+  so utilities like `bg-blue`, `text-blued`, `border-line`, `font-display`
+  and the `site:` responsive variant are available throughout the app.
+*/
+@theme {
+  /* Brand palette */
+  --color-blue: #0b3a82; /* primary deep "blueline" blue */
+  --color-blued: #072449; /* darker blue — headings / dark sections */
+  --color-bluel: #eaf1fb; /* light blue tint — section backgrounds */
+  --color-ink: #0e1726; /* default text */
+  --color-body: #48566b; /* body copy */
+  --color-accent: #1e6fe8; /* bright accent blue — CTAs / highlights */
+  --color-accents: #1559c4; /* accent, pressed/strong */
+  --color-accenti: #ffffff; /* text on accent */
+  --color-footer: #04162f; /* footer background */
+  --color-wa: #25d366; /* WhatsApp green */
+  --color-muted: #8a96a8; /* muted labels */
+
+  /* Hairlines / borders */
+  --color-line: #e7ebf2;
+  --color-line2: #dce4f0;
+  --color-line3: #d8e0ec;
+
+  /* Type families — wired to next/font variables in layout.tsx */
+  --font-display: var(--font-archivo), "Archivo", sans-serif;
+  --font-body: var(--font-hanken), "Hanken Grotesk", sans-serif;
+
+  /* The design switches from mobile to desktop at 860px */
+  --breakpoint-site: 53.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animated dashed corridor lines on the coverage map */
+@keyframes bl-dash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* Count-up offset for anchor links so the sticky header doesn't cover headings */
+:where(section[id]) {
+  scroll-margin-top: 72px;
+}
