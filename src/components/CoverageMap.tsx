@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { ComposableMap, Geographies, Geography, Line, Marker } from "react-simple-maps";
 import { geoMercator, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
@@ -31,39 +32,32 @@ const SERVED_STATES = new Set([
   "Haryana", // Gurgaon (NCR)
   "Karnataka", // Bengaluru — coming soon
 ]);
-// States to include in the fitExtent frame so the map covers everywhere the
-// hubs (and their surrounding context) live — essentially all of continental
-// India minus offshore territories.
+// States rendered on the map AND used to fit the frame. Deliberately excludes
+// J&K + Himachal + Punjab + Uttarakhand + far-NE so the map crops just above
+// Delhi/NCR (Gurgaon is our northernmost hub at ~28.5°N) and doesn't show the
+// politically-contested northern border. Excluding these both zooms the frame
+// and avoids rendering the disputed states.
 const FRAME_STATES = new Set([
-  "Jammu and Kashmir",
-  "Himachal Pradesh",
-  "Punjab",
   "Haryana",
   "Delhi",
-  "Uttaranchal",
-  "Uttar Pradesh",
   "Rajasthan",
+  "Uttar Pradesh",
   "Bihar",
   "Jharkhand",
   "West Bengal",
-  "Sikkim",
-  "Assam",
-  "Meghalaya",
-  "Nagaland",
-  "Manipur",
-  "Mizoram",
-  "Tripura",
-  "Arunachal Pradesh",
-  "Gujarat",
   "Madhya Pradesh",
   "Chhattisgarh",
   "Orissa",
+  "Gujarat",
   "Maharashtra",
   "Goa",
   "Karnataka",
   "Andhra Pradesh",
   "Tamil Nadu",
   "Kerala",
+  "Dadra and Nagar Haveli",
+  "Daman and Diu",
+  "Puducherry",
 ]);
 
 // Decode the bundled TopoJSON to GeoJSON features.
@@ -102,13 +96,29 @@ const projection = geoMercator().fitExtent(
   frameFC,
 );
 
+// Store subscriber that never fires — the point is only that `getSnapshot`
+// returns `false` during SSR and `true` after hydration, so React renders the
+// map client-only.
+const subscribe = () => () => {};
+const getClient = () => true;
+const getServer = () => false;
+
 export function CoverageMap() {
+  // Defer the map to a client-only render. react-simple-maps + d3-geo can
+  // produce projected marker transforms whose 14th-decimal digit differs
+  // between the server HTML and the client hydration pass (a Node-vs-browser
+  // floating-point rounding difference), which trips React's hydration
+  // mismatch check. useSyncExternalStore returns `false` during SSR and
+  // `true` after the client takes over, so hydration never sees the map.
+  const mounted = useSyncExternalStore(subscribe, getClient, getServer);
+
   return (
     <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[14px] bg-blued p-[5px]">
       <div className="absolute left-[18px] top-[14px] z-10 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
         {coverage.mapLabel}
       </div>
 
+      {mounted ? (
       <ComposableMap
         // react-simple-maps uses a function projection as-is (no config
         // override), so our pre-fit Mercator is used directly. The cast just
@@ -120,10 +130,13 @@ export function CoverageMap() {
         role="img"
         aria-label="Map of central and southern India showing Blueline service hubs"
       >
-        {/* State outlines */}
+        {/* State outlines — only states in FRAME_STATES render, so the map
+            crops cleanly to central + peninsular India. */}
         <Geographies geography={topo as unknown as Record<string, unknown>}>
           {({ geographies }) =>
-            geographies.map((geo) => {
+            geographies
+              .filter((geo) => FRAME_STATES.has((geo.properties as StateProps).NAME_1 ?? ""))
+              .map((geo) => {
               const name = (geo.properties as StateProps).NAME_1 ?? "";
               const served = SERVED_STATES.has(name);
               return (
@@ -200,6 +213,14 @@ export function CoverageMap() {
           );
         })}
       </ComposableMap>
+      ) : (
+        /* Pre-hydration placeholder with the same aspect as the real map so
+           the surrounding layout doesn't jump when the map mounts. */
+        <div
+          aria-hidden
+          style={{ width: "100%", aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
+        />
+      )}
 
       {/* Legend */}
       <div className="absolute bottom-[14px] left-[18px] z-10 flex flex-col gap-[6px] text-[11px] text-white/60">
