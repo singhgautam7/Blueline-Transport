@@ -1,4 +1,4 @@
-import { Truck, Boxes, Route, Warehouse, ShieldCheck, Clock, type LucideIcon } from "lucide-react";
+import { Truck, Boxes, Route, Warehouse, ShieldCheck, Clock, Zap, Utensils, type LucideIcon } from "lucide-react";
 import { siteContent } from "@/data/siteContent";
 import { SectionHeading } from "./SectionHeading";
 
@@ -11,6 +11,8 @@ const ICONS: Record<string, LucideIcon> = {
   warehouse: Warehouse,
   shield: ShieldCheck,
   clock: Clock,
+  zap: Zap,
+  utensils: Utensils,
 };
 
 export function ServicesSection() {

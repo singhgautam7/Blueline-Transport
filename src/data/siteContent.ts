@@ -9,9 +9,9 @@
  *   • Change only the text inside the "quotes". e.g. "Mumbai" -> "Chennai".
  *   • Keep the quotes, the commas and the curly braces exactly where they are.
  *   • Numbers (like establishedYear or a stat `value`) have NO quotes — leave
- *     them as plain numbers, e.g. 450.
+ *     them as plain numbers, e.g. 400.
  *   • `whatsapp` must be digits only with the country code and no “+”, spaces
- *     or dashes (e.g. India +91 98765 43210  ->  "919876543210"). It is used
+ *     or dashes (e.g. India +91 98670 76389  ->  "919867076389"). It is used
  *     to build the WhatsApp click-to-chat link.
  *   • `phone.display` is what people SEE; `phone.tel` is what the phone DIALS
  *     (digits + leading “+”, no spaces).
@@ -24,7 +24,7 @@
 export const siteContent = {
   company: {
     name: "Blueline Transport",
-    legalName: "Blueline Transport Pvt. Ltd.",
+    legalName: "Blueline Transport",
     logoLine1: "BLUELINE",
     logoLine2: "TRANSPORT",
     tagline: "Moving India's freight, on time, every time.",
@@ -48,13 +48,17 @@ export const siteContent = {
     titleAccent: "on time",
     titlePost: ", every time.",
     subline:
-      "Full-truckload and part-load road transport across Mumbai, Pune and Ahmedabad. GPS-tracked, insured, and run by a team that picks up the phone.",
+      "A 400-strong fleet moving full and part loads across 20+ cities for India's leading e-commerce and logistics partners. GPS-tracked, insured, and run by a team that picks up the phone.",
     quoteCta: "Get a Quote on WhatsApp",
     // Pre-filled message used for the hero "Get a Quote" WhatsApp link.
     quoteMessage: "Hi Blueline, I'd like a freight quote",
-    trustChips: ["GPS-tracked fleet", "All shipments insured", "Pan-India network"],
-    imageCaption: "Photo placeholder · NH-48",
-    statBadgeValue: "99.2%",
+    trustChips: [
+      "GPS-tracked fleet",
+      "98.2% on-time delivery",
+      "Trusted by India's leading e-commerce brands",
+    ],
+    imageCaption: "Photo placeholder",
+    statBadgeValue: "98.2%",
     statBadgeLabel: "On-time delivery record",
   },
 
@@ -62,54 +66,55 @@ export const siteContent = {
   // `value` is the number it counts up to; `suffix` is appended after it.
   stats: [
     { value: 7, suffix: "", label: "Years on the road" },
-    { value: 450, suffix: "+", label: "Trucks in fleet" },
-    { value: 80, suffix: "+", label: "Cities reached" },
-    { value: 240, suffix: "K+", label: "Shipments delivered" },
+    { value: 400, suffix: "+", label: "Vehicles in network" },
+    { value: 20, suffix: "+", label: "Cities reached" },
+    { value: 4, suffix: " Lakh+", label: "Tonnes delivered" },
   ],
 
   services: {
     eyebrow: "What we move",
     heading: "Freight services built for supply chains that can't slip.",
     intro:
-      "One operator for line-haul, distribution and storage, so you brief one team and track one shipment, end to end.",
+      "From bulk line-haul to same-day quick-commerce runs — one operator, one team, one point of contact per account.",
     // `icon` maps to a lucide icon (see ServicesSection.tsx). Allowed values:
-    // "truck" | "boxes" | "route" | "warehouse" | "shield" | "clock".
+    // "truck" | "boxes" | "route" | "warehouse" | "shield" | "clock" | "zap" |
+    // "utensils".
     items: [
       {
         icon: "truck",
         title: "Full Truckload (FTL)",
         description:
-          "Dedicated vehicles for bulk consignments. Point to point, no transhipment, fixed transit windows.",
+          "Dedicated Eicher trucks (14ft to 32ft XL) for bulk consignments. Point to point, no transhipment, fixed transit windows.",
+      },
+      {
+        icon: "zap",
+        title: "Quick-Commerce & E-com Fulfilment",
+        description:
+          "High-frequency Tata Ace and Bolero pickup runs built for quick-commerce and marketplace partners.",
       },
       {
         icon: "boxes",
-        title: "Part Load (LTL)",
+        title: "Part Load / Mini-LCV Delivery",
         description:
-          "Pay only for the space you use, with shared trucking and safe handling for smaller, frequent dispatches.",
+          "Pay only for the space you use. Tata Ace 7ft/8ft and Bolero pickups for smaller, frequent city dispatches.",
       },
       {
         icon: "route",
         title: "Intercity Line-Haul",
         description:
-          "Scheduled corridor runs between our hubs with relay drivers for faster, predictable long-distance transit.",
+          "Scheduled corridor runs on our 17ft to 32ft XL Eicher trucks, for faster, predictable long-distance transit.",
       },
       {
-        icon: "warehouse",
-        title: "Warehousing",
+        icon: "utensils",
+        title: "Food, FMCG & Perishables",
         description:
-          "Short and long-term storage at hub locations with inventory handling, staging and last-mile dispatch.",
+          "FSSAI-registered handling for prepared foods, ready-to-eat and fresh produce categories.",
       },
       {
         icon: "shield",
         title: "Insured & Tracked",
         description:
-          "Every consignment covered and visible, with live GPS, e-POD and a single point of contact per account.",
-      },
-      {
-        icon: "clock",
-        title: "Time-Bound Express",
-        description:
-          "Priority lanes for production-critical and FMCG replenishment loads with committed delivery SLAs.",
+          "Every consignment covered and visible, with GPS tracking, e-POD and a single point of contact per account.",
       },
     ],
   },
@@ -118,33 +123,39 @@ export const siteContent = {
     eyebrow: "The fleet",
     heading: "The right vehicle for every load.",
     intro:
-      "From 1-tonne city runs to 18-tonne trailers. Owned and attached vehicles, all GPS-fitted.",
+      "From compact 7-foot Tata Ace pickups to 32-foot Eicher XL trucks. 400+ vehicles in our network, all GPS-tracked.",
+    milestone: "4 Lakh+ tonnes delivered in the past year",
     // `shape` selects the truck illustration (see FleetSection.tsx). Allowed:
-    // "lcv" | "container" | "trailer" | "flatbed".
+    // "ace" | "bolero" | "eicher" | "eicher-xl".
     items: [
-      { shape: "lcv", type: "Mini / LCV", model: "Tata Ace · 407 class", payload: "up to 1.5T", count: "160+" },
-      { shape: "container", type: "Container", model: "19ft & 22ft closed body", payload: "up to 9T", count: "190+" },
-      { shape: "trailer", type: "Trailer", model: "32ft multi-axle", payload: "up to 18T", count: "70+" },
-      { shape: "flatbed", type: "Open / Flatbed", model: "Tarpaulin & project cargo", payload: "up to 15T", count: "30+" },
+      { shape: "ace", type: "Tata Ace 7ft", model: "Mini / LCV", payload: "≈ 0.75 T", count: "70+" },
+      { shape: "ace", type: "Tata Ace 8ft", model: "Mini / LCV", payload: "≈ 1.0 T", count: "60+" },
+      { shape: "bolero", type: "Bolero Pickup 1.2T", model: "Pickup", payload: "1.2 T", count: "40+" },
+      { shape: "bolero", type: "Bolero Pickup 1.3T", model: "Pickup", payload: "1.3 T", count: "35+" },
+      { shape: "bolero", type: "Bolero Pickup 1.7T", model: "Pickup", payload: "1.7 T", count: "30+" },
+      { shape: "bolero", type: "Bolero Pickup 2.0T", model: "Pickup", payload: "2.0 T", count: "25+" },
+      { shape: "eicher", type: "Eicher 14ft", model: "Truck", payload: "≈ 4 T", count: "30+" },
+      { shape: "eicher", type: "Eicher 17ft", model: "Truck", payload: "≈ 5–6 T", count: "25+" },
+      { shape: "eicher", type: "Eicher 20ft", model: "Truck", payload: "≈ 7–8 T", count: "20+" },
+      { shape: "eicher", type: "Eicher 22ft", model: "Truck", payload: "≈ 9 T", count: "20+" },
+      { shape: "eicher", type: "Eicher 24ft", model: "Truck", payload: "≈ 10 T", count: "20+" },
+      { shape: "eicher-xl", type: "Eicher 32ft XL", model: "Long-haul truck", payload: "≈ 12–14 T", count: "25+" },
     ],
   },
 
   coverage: {
     eyebrow: "Coverage",
-    heading: "Hubs in the west, reach across the map.",
+    heading: "Headquartered in Mumbai, delivering across India.",
     intro:
-      "Operational from Mumbai, Pune and Ahmedabad, with daily corridor runs, and Bangalore opening next.",
-    mapLabel: "Route network",
-    mapLegend: "Active freight corridors",
+      "20+ cities served nationwide from our Goregaon operations base, with a full-city detailed lane list on the way.",
+    mapLabel: "Base of operations",
+    mapLegend: "Head office · Goregaon East, Mumbai",
     // Hubs shown in the list and as nodes on the map. `lat`/`lng` are real
     // coordinates, projected onto the India map. `hq` marks the head office;
     // `comingSoon` styles a hub as an upcoming location. `labelSide` nudges the
     // map label left/right so it doesn't overlap the silhouette.
     hubs: [
-      { city: "Mumbai", note: "Bhiwandi hub · Maharashtra", hq: true, primary: true, lat: 19.08, lng: 72.88, labelSide: "left" },
-      { city: "Pune", note: "Chakan industrial belt", lat: 18.52, lng: 73.86, labelSide: "right" },
-      { city: "Ahmedabad", note: "Gujarat distribution centre", lat: 23.03, lng: 72.57, labelSide: "right" },
-      { city: "Bengaluru", note: "Next hub, our South India gateway", comingSoon: "Coming 2026", lat: 12.97, lng: 77.59, labelSide: "left" },
+      { city: "Mumbai", note: "Goregaon East · Registered office", hq: true, primary: true, lat: 19.14, lng: 72.87, labelSide: "right" },
     ],
     // Decorative non-served metros (central, west & south India), tinted on the
     // map for geographic context.
@@ -154,64 +165,54 @@ export const siteContent = {
       { city: "Nagpur", lat: 21.15, lng: 79.09, labelSide: "left" },
       { city: "Hyderabad", lat: 17.39, lng: 78.49, labelSide: "left" },
       { city: "Goa", lat: 15.49, lng: 73.83, labelSide: "left" },
+      { city: "Bengaluru", lat: 12.97, lng: 77.59, labelSide: "left" },
     ],
     // Freight corridors drawn between hubs (by city name).
-    corridors: [
-      ["Mumbai", "Pune"],
-      ["Mumbai", "Ahmedabad"],
-      ["Mumbai", "Bengaluru"],
-      ["Pune", "Bengaluru"],
-    ],
+    corridors: [] as ReadonlyArray<readonly [string, string]>,
   },
 
   clients: {
     eyebrow: "Trusted by",
-    heading: "Leading FMCG & manufacturing brands",
-    // Text placeholders for client logos. Replace with real names/logos ONLY
-    // once you have written permission to display each brand.
-    logos: ["NORTHPEAK", "VEDA FOODS", "ACME STEEL", "PRIMECHEM", "SUNRISE FMCG"],
-    testimonials: [
-      {
-        quote:
-          "Blueline runs our Maharashtra to Gujarat lane with delivery reliability we can actually plan production around. When something moves, someone answers the phone.",
-        initials: "RM",
-        author: "Rohan Mehta",
-        role: "Head of Supply Chain · Veda Foods",
-      },
-      {
-        quote:
-          "We shifted our inbound steel coils to Blueline trailers two years ago. Transit times tightened and the GPS visibility ended the daily where-is-my-truck calls.",
-        initials: "SP",
-        author: "Sneha Patil",
-        role: "Procurement Lead · Acme Steel",
-      },
-    ],
+    heading: "Leading e-commerce & logistics brands",
+    // Real client names supplied by the client, with confirmed permission.
+    // Replace text tiles with logo image paths in public/images/clients/
+    // once official logo files are received (PNG or SVG, transparent bg).
+    logos: ["Flipkart", "Blinkit", "Ninjacart", "Udaan", "Mahindra Logistics", "Zomato"],
+    testimonials: [] as ReadonlyArray<{
+      quote: string;
+      initials: string;
+      author: string;
+      role: string;
+    }>,
   },
 
   about: {
     eyebrow: "About Blueline",
-    heading: "Started in 2019 with four trucks and one promise: deliver on time.",
+    heading: "Founded in 2019 with a promise: deliver on time.",
     paragraphs: [
-      "Blueline Transport was founded in Bhiwandi to take the guesswork out of road freight for manufacturers and FMCG distributors. What began as a handful of vehicles on the Mumbai to Pune lane has grown into a network of owned and attached trucks running the western corridor every day.",
+      "Blueline Transport was founded in Mumbai in 2019 to take the guesswork out of road freight for India's e-commerce, quick-commerce and FMCG operators. What began as a handful of pickups running city dispatches has grown into a 400-strong network of Tata Ace, Bolero and Eicher vehicles moving loads for partners like Flipkart, Blinkit, Ninjacart, Udaan, Mahindra Logistics and Zomato.",
       "We stayed deliberately hands-on: GPS on every vehicle, a named coordinator on every account, and a control room that you can reach on a phone call, not a ticket queue. That's what dependable logistics looks like.",
     ],
     facts: [
-      { value: "2019", label: "Founded in Bhiwandi" },
+      { value: "2019", label: "Founded in Mumbai" },
       { value: "3", label: "Operating hubs" },
       { value: "24/7", label: "Control room" },
-      { value: "99.2%", label: "On-time record" },
+      { value: "98.2%", label: "On-time record" },
     ],
   },
 
   contact: {
     eyebrow: "Get in touch",
     heading: "Tell us the load. We'll quote it on the call.",
-    phone: { display: "+91 98765 43210", tel: "+919876543210" },
-    whatsapp: "919876543210", // digits only, builds the wa.me link
-    email: "ops@bluelinetransport.in",
-    address: "Sai Logistics Park, Bhiwandi, MH 421302",
+    phone: { display: "+91 98670 76389", tel: "+919867076389" },
+    whatsapp: "919867076389", // digits only, builds the wa.me link
+    email: "bluelinetransport8@gmail.com",
+    address: "RNO 843, Adarsha Nagar, Aarey Colony, Goregaon East, Mumbai 400065",
+    locality: "Mumbai",
+    region: "Maharashtra",
+    postalCode: "400065",
     hours: "Mon-Sat 9:00-20:00 · Control room 24/7",
-    mapsQuery: "Sai Logistics Park, Bhiwandi, Maharashtra", // used for the embedded map
+    mapsQuery: "Adarsha Nagar, Aarey Colony, Goregaon East, Mumbai 400065", // used for the embedded map
     form: {
       title: "Request a quote",
       namePlaceholder: "Your name",
@@ -226,31 +227,36 @@ export const siteContent = {
       whatsappTemplate:
         "Hi Blueline, I'd like a freight quote.\nName: {name}\nCompany: {company}\nPhone: {phone}\nRoute & load: {details}",
     },
-    mapCaption: "Map · Bhiwandi",
+    mapCaption: "Map · Goregaon East, Mumbai",
   },
 
   footer: {
     blurb:
-      "Dependable road freight for India's manufacturers and FMCG brands. On time, every time, since 2019.",
+      "Dependable road freight for India's e-commerce, quick-commerce and FMCG partners. On time, every time, since 2019.",
     companyLinks: [
       { label: "Services", href: "#services" },
       { label: "Fleet", href: "#fleet" },
       { label: "Coverage", href: "#coverage" },
       { label: "About", href: "#about" },
     ],
-    serviceLinks: ["Full Truckload", "Part Load", "Warehousing", "Express Lanes"],
-    gstin: "GSTIN 27ABCDE1234F1Z5 · Fully insured carrier",
+    serviceLinks: [
+      "Full Truckload",
+      "Quick-Commerce",
+      "Part Load / LCV",
+      "Food & FMCG",
+    ],
+    gstin: "GSTIN 27CBZPM5601D1ZF · FSSAI registered · Fully insured carrier",
   },
 
   // Used for SEO <title>/<meta> and the LocalBusiness structured data.
   seo: {
-    title: "Blueline Transport | Road Logistics & Freight Across Western India",
+    title: "Blueline Transport | Road Freight & Quick-Commerce Delivery Across India",
     description:
-      "Full-truckload (FTL) and part-load (LTL) road transport across Mumbai, Pune and Ahmedabad. GPS-tracked, insured freight with a 99.2% on-time record. Get a quote on WhatsApp.",
+      "400+ vehicles moving full and part loads across 20+ cities for India's leading e-commerce, quick-commerce and FMCG partners. GPS-tracked, insured freight with a 98.2% on-time record.",
     siteUrl: "https://www.bluelinetransport.in",
     ogImage: "/images/og-cover.svg",
     priceRange: "₹₹",
-    areaServed: ["Mumbai", "Pune", "Ahmedabad", "Bengaluru", "Maharashtra", "Gujarat"],
+    areaServed: ["Mumbai", "Maharashtra", "India"],
   },
 } as const;
 

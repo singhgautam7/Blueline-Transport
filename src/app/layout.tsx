@@ -68,9 +68,9 @@ function LocalBusinessJsonLd() {
     address: {
       "@type": "PostalAddress",
       streetAddress: contact.address,
-      addressLocality: "Bhiwandi",
-      addressRegion: "Maharashtra",
-      postalCode: "421302",
+      addressLocality: contact.locality,
+      addressRegion: contact.region,
+      postalCode: contact.postalCode,
       addressCountry: "IN",
     },
     areaServed: seo.areaServed.map((name) => ({ "@type": "Place", name })),

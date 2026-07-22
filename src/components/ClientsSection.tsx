@@ -13,12 +13,17 @@ export function ClientsSection() {
           <h2 className="mt-[10px] font-display text-[24px] font-extrabold text-white">{clients.heading}</h2>
         </div>
 
-        {/* Logo placeholders — replace with real logos once usage rights are cleared. */}
-        <div className="mb-10 grid grid-cols-2 gap-3 site:grid-cols-5">
+        {/* Client tiles — will be swapped for real logo files (PNG/SVG) as they arrive.
+            See public/images/README.md for the drop-in path. */}
+        <div
+          className={`grid grid-cols-2 gap-3 sm:grid-cols-3 site:grid-cols-6 ${
+            clients.testimonials.length > 0 ? "mb-10" : ""
+          }`}
+        >
           {clients.logos.map((logo) => (
             <div
               key={logo}
-              className="flex h-16 items-center justify-center rounded-lg border border-white/[.14] font-display text-[15px] font-extrabold tracking-[0.04em] text-white/55"
+              className="flex h-16 items-center justify-center rounded-lg border border-white/[.14] px-3 text-center font-display text-[14px] font-extrabold tracking-[0.02em] text-white/70"
             >
               {logo}
             </div>
