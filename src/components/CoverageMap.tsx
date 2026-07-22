@@ -126,17 +126,19 @@ export function CoverageMap() {
         projection={projection as unknown as string}
         width={FRAME_W}
         height={FRAME_H}
-        style={{ width: "100%", height: "auto" }}
+        // overflow: hidden ensures states that project outside the viewBox
+        // (the northern strip beyond FRAME_STATES) are clipped by the SVG
+        // viewport instead of overlapping the legend / next section.
+        style={{ width: "100%", height: "auto", overflow: "hidden" }}
         role="img"
-        aria-label="Map of central and southern India showing Blueline service hubs"
+        aria-label="Map of India showing Blueline service hubs"
       >
-        {/* State outlines — only states in FRAME_STATES render, so the map
-            crops cleanly to central + peninsular India. */}
+        {/* State outlines — ALL states render so borders stay complete; the
+            projection is fit to FRAME_STATES only, so states north of Delhi
+            (Punjab, HP, J&K) project above the viewBox and are clipped. */}
         <Geographies geography={topo as unknown as Record<string, unknown>}>
           {({ geographies }) =>
-            geographies
-              .filter((geo) => FRAME_STATES.has((geo.properties as StateProps).NAME_1 ?? ""))
-              .map((geo) => {
+            geographies.map((geo) => {
               const name = (geo.properties as StateProps).NAME_1 ?? "";
               const served = SERVED_STATES.has(name);
               return (
