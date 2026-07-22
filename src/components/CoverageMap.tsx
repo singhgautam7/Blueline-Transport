@@ -22,19 +22,48 @@ type City = {
 const hubs = coverage.hubs as readonly City[];
 const hubByCity: Record<string, City> = Object.fromEntries(hubs.map((h) => [h.city, h]));
 
-// States we operate in — tinted brighter, and used to frame the map.
-// (Mumbai HQ is in Maharashtra; the fitExtent frame around this state
-// controls how tightly the map zooms.)
-const SERVED_STATES = new Set(["Maharashtra"]);
-// Extra states to include in the map view (kept at the standard tint) so the
-// frame doesn't collapse to a single state and the surrounding context reads.
+// States our confirmed hubs sit in — tinted brighter. Karnataka is included
+// because Bengaluru is a "coming soon" hub and the highlight communicates
+// that it's part of the planned network.
+const SERVED_STATES = new Set([
+  "Maharashtra", // Mumbai HQ, Pune, Nagpur
+  "Gujarat", // Ahmedabad
+  "Haryana", // Gurgaon (NCR)
+  "Karnataka", // Bengaluru — coming soon
+]);
+// States to include in the fitExtent frame so the map covers everywhere the
+// hubs (and their surrounding context) live — essentially all of continental
+// India minus offshore territories.
 const FRAME_STATES = new Set([
-  "Maharashtra",
+  "Jammu and Kashmir",
+  "Himachal Pradesh",
+  "Punjab",
+  "Haryana",
+  "Delhi",
+  "Uttaranchal",
+  "Uttar Pradesh",
+  "Rajasthan",
+  "Bihar",
+  "Jharkhand",
+  "West Bengal",
+  "Sikkim",
+  "Assam",
+  "Meghalaya",
+  "Nagaland",
+  "Manipur",
+  "Mizoram",
+  "Tripura",
+  "Arunachal Pradesh",
   "Gujarat",
-  "Karnataka",
   "Madhya Pradesh",
-  "Andhra Pradesh",
+  "Chhattisgarh",
+  "Orissa",
+  "Maharashtra",
   "Goa",
+  "Karnataka",
+  "Andhra Pradesh",
+  "Tamil Nadu",
+  "Kerala",
 ]);
 
 // Decode the bundled TopoJSON to GeoJSON features.

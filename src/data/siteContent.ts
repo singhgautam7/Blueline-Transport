@@ -11,7 +11,7 @@
  *   • Numbers (like establishedYear or a stat `value`) have NO quotes — leave
  *     them as plain numbers, e.g. 400.
  *   • `whatsapp` must be digits only with the country code and no “+”, spaces
- *     or dashes (e.g. India +91 98670 76389  ->  "919867076389"). It is used
+ *     or dashes (e.g. India +91 98670 76389  ->  "91 98670 76389"). It is used
  *     to build the WhatsApp click-to-chat link.
  *   • `phone.display` is what people SEE; `phone.tel` is what the phone DIALS
  *     (digits + leading “+”, no spaces).
@@ -147,25 +147,30 @@ export const siteContent = {
     eyebrow: "Coverage",
     heading: "Headquartered in Mumbai, delivering across India.",
     intro:
-      "20+ cities served nationwide from our Goregaon operations base, with a full-city detailed lane list on the way.",
-    mapLabel: "Base of operations",
-    mapLegend: "Head office · Goregaon East, Mumbai",
+      "20+ cities served nationwide from our Goregaon operations base, with dedicated hubs across the western, central, northern and southern corridors.",
+    mapLabel: "Service network",
+    mapLegend: "Active service cities",
     // Hubs shown in the list and as nodes on the map. `lat`/`lng` are real
     // coordinates, projected onto the India map. `hq` marks the head office;
     // `comingSoon` styles a hub as an upcoming location. `labelSide` nudges the
     // map label left/right so it doesn't overlap the silhouette.
     hubs: [
-      { city: "Mumbai", note: "Goregaon East · Registered office", hq: true, primary: true, lat: 19.14, lng: 72.87, labelSide: "right" },
+      { city: "Mumbai", note: "Goregaon East · Registered office", hq: true, primary: true, lat: 19.14, lng: 72.87, labelSide: "left" },
+      { city: "Ahmedabad", note: "Gujarat distribution point", lat: 23.03, lng: 72.57, labelSide: "left" },
+      { city: "Pune", note: "Chakan & Talegaon industrial belt", lat: 18.52, lng: 73.86, labelSide: "right" },
+      { city: "Nagpur", note: "Central India hub", lat: 21.15, lng: 79.09, labelSide: "right" },
+      { city: "Gurgaon", note: "NCR delivery base", lat: 28.46, lng: 77.03, labelSide: "left" },
+      { city: "Bengaluru", note: "Next hub, our South India gateway", comingSoon: "Coming 2026", lat: 12.97, lng: 77.59, labelSide: "left" },
     ],
-    // Decorative non-served metros (central, west & south India), tinted on the
-    // map for geographic context.
+    // Decorative non-served metros, tinted on the map for geographic context.
     contextCities: [
+      { city: "Jaipur", lat: 26.91, lng: 75.79, labelSide: "left" },
       { city: "Rajkot", lat: 22.30, lng: 70.79, labelSide: "left" },
-      { city: "Indore", lat: 22.72, lng: 75.86, labelSide: "right" },
-      { city: "Nagpur", lat: 21.15, lng: 79.09, labelSide: "left" },
-      { city: "Hyderabad", lat: 17.39, lng: 78.49, labelSide: "left" },
+      { city: "Indore", lat: 22.72, lng: 75.86, labelSide: "left" },
+      { city: "Hyderabad", lat: 17.39, lng: 78.49, labelSide: "right" },
+      { city: "Kolkata", lat: 22.57, lng: 88.36, labelSide: "left" },
+      { city: "Chennai", lat: 13.08, lng: 80.27, labelSide: "right" },
       { city: "Goa", lat: 15.49, lng: 73.83, labelSide: "left" },
-      { city: "Bengaluru", lat: 12.97, lng: 77.59, labelSide: "left" },
     ],
     // Freight corridors drawn between hubs (by city name).
     corridors: [] as ReadonlyArray<readonly [string, string]>,
